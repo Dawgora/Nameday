@@ -5,3 +5,8 @@
 `get_today_nameday/0` - gets current day namedays.
 
 ![alt text](http://i1.kym-cdn.com/entries/icons/facebook/000/005/600/its-something.jpg)
+
+## TODO
+1. Create a way to use the second JSON file
+2. Get the date from the Name
+3. Optimisation
