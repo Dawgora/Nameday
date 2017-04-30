@@ -1,0 +1,20 @@
+defmodule NamedaysTest do
+  use ExUnit.Case
+  use Timex
+  alias Namedays.Nameday.Store
+
+  test "returns my nameday" do
+    names = Store.get_names("01-22")
+    assert names == ["Austris"]
+  end
+
+  test "returns this days namedays" do
+    date = Timex.now 
+    {_, date} = Timex.format(date, "%m-%d", :strftime)
+    names = Store.get_names(date)
+    today = Store.get_today_nameday
+    assert today = names
+  end  
+
+
+end
