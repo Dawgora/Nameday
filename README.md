@@ -8,7 +8,7 @@
 ![alt text](http://i1.kym-cdn.com/entries/icons/facebook/000/005/600/its-something.jpg)
 
 ## TODO
-1. Create a way to use the second JSON file
-~~2. Get the date from the Name~~
-3. Optimisation
-4. Fix the problem where user inputing wrong name, gets an error.
+1. Create a way to use the second JSON file <br />
+~~2. Get the date from the Name~~ <br />
+3. Optimisation <br />
+4. Fix the problem where user inputing wrong name, gets an error. <br />
