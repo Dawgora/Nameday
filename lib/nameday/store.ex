@@ -3,16 +3,14 @@ defmodule Namedays.Nameday.Store do
   alias Namedays.Nameday.DataParser
 
   @nameday_link "https://gist.githubusercontent.com/laacz/5cccb056a533dffb2165/raw/559d66104537b029e6a4ac489d7b5f68bd5ab384/namedays.json"
-  #@nameday_extended "https://gist.githubusercontent.com/laacz/5cccb056a533dffb2165/raw/559d66104537b029e6a4ac489d7b5f68bd5ab384/namedays-extended.json"
+  @nameday_extended "https://gist.githubusercontent.com/laacz/5cccb056a533dffb2165/raw/559d66104537b029e6a4ac489d7b5f68bd5ab384/namedays-extended.json"
 
   def start_link do
-    GenServer.start_link(__MODULE__, %{}, name: :nameday_store)
+    GenServer.start_link(__MODULE__, [], name: :nameday_store)
   end 
 
   def init(_) do
-    #data = Enum.concat(DataParser.get_data(@nameday_link), DataParser.get_data(@nameday_extended) )
-    data = DataParser.get_data(@nameday_link)
-    {:ok, data}
+    {:ok, [], 0}
   end  
 
   def get_names(name) do
@@ -40,6 +38,11 @@ defmodule Namedays.Nameday.Store do
     {actual_date,_} = date
     response = Atom.to_string(actual_date)
     {:reply, response, nameday_list}
+  end  
+
+  def handle_info(:timeout, []) do
+    data = Enum.concat(DataParser.get_data(@nameday_link), DataParser.get_data(@nameday_extended))
+    {:noreply, data}
   end  
 
   defp find_name?(tuple, name) do

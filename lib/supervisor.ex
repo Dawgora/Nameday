@@ -5,9 +5,9 @@ defmodule Namedays.Supervisor do
       Supervisor.start_link(__MODULE__, [])
     end  
 
-    def init (_) do
+    def init ([]) do
       children = [
-        worker(Namedays.Nameday.Supervisor,[])
+        supervisor(Namedays.Nameday.Supervisor,[])
       ]
 
       supervise(children, strategy: :one_for_all)
