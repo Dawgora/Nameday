@@ -19,6 +19,10 @@ defmodule Namedays.Nameday.Store do
     GenServer.call(:nameday_store, {:get_namedays, name})
   end  
 
+  def get_by_name(name) do
+    GenServer.call(:nameday_store, {:get_by_name, name})
+  end  
+
   def get_today_nameday do
     date = Timex.now("Europe/Riga") 
     {_, date} = Timex.format(date, "%m-%d", :strftime)
@@ -28,6 +32,19 @@ defmodule Namedays.Nameday.Store do
   def handle_call({:get_namedays, name}, _from, nameday_list) do
     names = nameday_list[String.to_atom(name)]
     {:reply, names, nameday_list}
+  end  
+
+  def handle_call({:get_by_name, name}, _from, nameday_list) do
+    date = Enum.find(nameday_list,&find_name?(&1, name)) 
+
+    {actual_date,_} = date
+    response = Atom.to_string(actual_date)
+    {:reply, response, nameday_list}
+  end  
+
+  defp find_name?(tuple, name) do
+    {_,values} = tuple
+    Enum.member?(values, name)
   end  
 
 end  

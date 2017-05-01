@@ -8,4 +8,9 @@ defmodule NamedaysTest do
     assert names == ["Austris"]
   end
 
+  test "returns date by name" do
+    date = Store.get_by_name("Austris")
+    assert date == "01-22"
+  end  
+
 end
